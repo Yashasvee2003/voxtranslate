@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>VOX TRANSLATE</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            margin: 0; 
+        }
+        body, div, img {
+            padding: 0;
+            border: 0;
+        }
+        .logo {
+            width: fit-content;
+            background-color: black;
+            height: auto;
+            display: block;
+        }
+        .convert {
+            background-color: black;
+            width: 98.9vw;
+            height: 140vh; 
+            text-align: center; 
+        }
+        .convert p {
+            margin: 0px;
+            padding-top: 60px;
+            background-color: black;
+        }
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 70px;
+        }
+
+        .link-txt {
+            padding: 8px;
+            width: 350px;
+            border-radius: 17px;
+            color: rgb(27, 59, 111);
+            font-family: "Martian Mono";
+            border-color: rgb(217, 217, 217);
+            background-color: rgb(217, 217, 217);
+            margin-bottom: 10px; 
+        }
+
+        .link-txt::placeholder {
+            color: rgb(27, 59, 111);
+            font-size: 15px;
+        }
+
+        .link-txt + select {
+            border-radius: 17px; 
+            border-color: rgb(217, 217, 217);
+            padding: 8px;
+            width: 350px;
+            color: rgb(27, 59, 111);
+            font-family: "Martian Mono";
+            background-color: rgb(217, 217, 217);
+        }
+        .btn{
+            margin-top:50px;
+            font-size: 18px;
+            color: white;
+            padding: 10px;
+            font-family: "Martino Mono";
+            width:150px;
+            border-radius: 17px;
+            border-color: rgb(217, 217, 217);
+            border-width: 5px;
+            background-color: rgb(27, 59, 111);
+            
+        }
+        .btn1{
+            margin-top:10px;
+            font-size: 18px;
+            color: white;
+            padding: 10px;
+            font-family: "Martino Mono";
+            width:150px;
+            border-radius: 17px;
+            border-color: rgb(217, 217, 217);
+            border-width: 5px;
+            background-color: rgb(27, 59, 111);
+            
+        }
+        .video-plyr{
+            height:150vh;
+            margin: 0px;
+            background-color: black;
+            text-align: center;
+        }
+        .link-txt1
+        {
+            border-color: rgb(217, 217, 217);
+            padding: 8px;
+            width: 350px;
+            color: rgb(27, 59, 111);
+            font-family: "Martian Mono";
+            background-color: rgb(217, 217, 217);
+        }
+        .link-txt1::placeholder {
+            color: rgb(27, 59, 111);
+            font-size: 15px;
+        }
+        .feature{
+            padding: 9px;
+            width: 100px;
+            background-color: rgb(85, 204, 255);
+            font-family: "Mark One";
+            font-size: 13px;
+            font-weight: 200;
+        }
+        .descr{
+            height:340px;
+            width:78%;
+            margin-left: 10%;
+            text-align: center;
+            background-color: rgb(33, 41, 92);
+            margin-bottom: 100px;
+        }
+        .three{
+            float: left;
+            width: 23%;
+            text-align: left;
+            margin-left:110px;
+            margin-top: 30px;
+            color: rgb(105, 110, 112);
+            font-family: "Martino Mano";
+            font-size: 20px;
+        }
+        .descr::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        .feedback{
+            margin:0px;
+            padding: 0px;
+            background-color: black;
+            height:95vh;
+            text-align: center;
+        }
+        .feedback p{
+            margin:0px;
+        }
+        .cont{
+            width:50%;
+            margin-top:20px;
+            text-align: center;
+            float:left;
+        }
+        .cont::placeholder{
+            margin:10px;
+            font-family:'Martel';
+            color:rgb(235, 235, 235);
+            padding:8px;
+            text-align: center;
+        }
+        .cont.input-container{
+            margin-left:20px;
+            padding:8px;
+        }
+        .sub-btn{
+            font-size: 18px;
+            color: white;
+            padding: 10px;
+            font-family: "Martino Mono";
+            width:150px;
+            border-radius: 17px;
+            border-color: gray;
+            border-width: 5px;
+            background-color: rgb(238, 68, 68);
+        }
+        .transcript-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0px;
+            float:left;
+            width:100%;
+        }
+        
+        .transcript {
+            flex: 1; 
+            box-sizing: border-box;
+            padding: 20px;
+            margin-top:100px;
+        } 
+        .highlight {
+            background-color: yellow;
+            cursor: pointer;
+        }
+        .highlighted {
+            background-color:rgb(47, 192, 197);
+            cursor: pointer;
+        }
+        .scroll-container {
+            height: 50px; 
+            overflow: auto;
+            float:left;
+            width:50%;
+            background-color: aliceblue;
+
+        }
+        .from-transcript-p {
+            font-family: 'Martian Mono';
+            font-size: 16px;
+            background-color: white;
+            padding: 10px; 
+            margin: 10px; 
+            border: 2px solid gray; 
+            border-radius: 10px;
+            overflow: auto; 
+            white-space: pre-line; 
+        }
+        
+        .from-transcript-p span {
+            display: inline-block;
+            margin-right: 10px; 
+        }
+        .to-transcript-p {
+            font-family: 'Martian Mono';
+            font-size: 16px;
+            background-color: white;
+            padding: 10px; 
+            margin: 10px; 
+            border: 2px solid gray;
+            border-radius: 10px;
+            overflow: auto; 
+            white-space: pre-line; 
+        }
+        
+        .to-transcript-p span {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; 
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .loading-title {
+            color: white;
+            margin-top: 10px;
+        }
+        #loading-overlay {
+            display: none;
+        }
+        
+        
+        </style>
+</head>
+<body>
+    <center><div id="loading-overlay">
+        <div class="loader" style="margin-top:300px"></div>
+        <div class="loading-title">Loading...</div>
+    </div></center>
+    <div class="logo">
+        <img src="https://lh3.googleusercontent.com/pw/AIL4fc_uV1pE53TDR9Xvuu4S2P3hx3MdDuwW-KYIn_9ZXqZDbjMSVOov_hs8o2x29lPoQ4u1o9xsPqe8pGKCqZHpDfetuShwp9zoQlklssKbVxfboC6YJA=w2400" style="height:100vh;width:205.7vh" /> 
+    </div>
+    <div class="convert">
+        <p style="color: rgb(242, 32, 13); font-family: Margarine; font-size: 60px;">Ready to convert?</p><br>
+        <p style="color: white;font-family:Martian Mono;font-size:40px">It's time to <br>supercharge your learning experience,<br>Paste your video link <br>below, then hit <br>convert!</p>
+        <div class="input-container" style="display: flex; flex-wrap: wrap; justify-content: center;">
+            <input type="url" id="videoLink" placeholder="https://video-link.com" class="link-txt" style="margin-bottom: 10px;">
+            <input type="text" id="targetLanguage" placeholder="Target Language" class="link-txt" style="margin-bottom: 10px;">
+            <button class="btn" onclick="runFunction()">Convert</button>
+            <!-- <button class="btn1" >Generate Sign Language Video</button> -->
+            <div class="transcript-container" id="SearchContainer">
+                <div class="transcript english" id="text" contenteditable="true">
+                    <label style="color:white;font-family:'MartinoMano';font-size:30px">From Language Transcript</label>
+                    <p class="from-transcript-p" style="color:black; font-family: 'Martian Mono'; font-size: 16px;background-color:white;height:200px;"></p>
+                </div>
+                <div class="transcript tamil" contenteditable="true">
+                    <label style="color:white;font-family:'MartinoMano';font-size:30px">Target Language Transcript</label>
+                    <p class="to-transcript-p" style="color:black; font-family: 'Martian Mono'; font-size: 16px;background-color:white;height:200px;"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="video-plyr">
+        <script>
+            function runFunction() {
+                $("#loading-overlay").show();
+                var data = {
+                    "parameter1": document.getElementById("videoLink").value,
+                    "parameter2": document.getElementById("targetLanguage").value
+                };
+    
+                $.ajax({
+                    url: '/run_function',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function(response) {
+                        console.log("Result:", response.result);
+                        console.log("Transcript:", response.transcript);
+    
+                        var fromTranscriptContent = response.transcript;
+                        var toTranscriptContent = response.to;
+    
+                        var fromTranscriptParagraph = document.querySelector(".from-transcript-p");
+                        var toTranscriptParagraph = document.querySelector(".to-transcript-p");
+    
+                        fromTranscriptParagraph.textContent = fromTranscriptContent;
+                        toTranscriptParagraph.textContent = toTranscriptContent;
+                        high();
+                        $("#loading-overlay").hide();
+                        var audioPlayer = document.getElementById("audioPlayer");
+                        var audioSource = document.getElementById("audioSource");
+                        audioSource.src = response.result;
+                        
+                    },
+                    error: function(error) {
+                        console.error("Error:", error);
+                        $("#loading-overlay").hide();
+                        // Handle error here
+                    }
+                });}
+
+                function subVideo() {
+                    var data = {
+                        "parameter3": document.getElementById("st").value,
+                        "parameter4": document.getElementById("et").value
+                    };
+            
+                    $.ajax({
+                        url: '/sub_video',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(data),
+                        success: function(response) {
+                            console.log("Result:", response.result);
+                        },
+                        error: function(error) {
+                            console.error("Error:", error);
+                            // Handle error here
+                        }
+                    });
+                }
+            function openLink(link) {
+                window.open(link, '_blank');
+            }
+    
+            var data_dictionary = {
+                "heart": "https://drive.google.com/file/d/1-UGAgsBk0sT2Wz-6OijzOz3TMa9j4k4O/view?usp=drive_link",
+                "corona": "https://drive.google.com/file/d/10WmziNMbL9MEOQWi1gsbOxbfI6cEGiLk/view?usp=drive_link",
+                "dinosaur": "https://drive.google.com/file/d/1bvwZ-8JWXypwjpy7ojkPA-TMrf-ll7iz/view?usp=sharing",
+                "black hole":"https://drive.google.com/file/d/15FXGIbwTBmpjpskp0KCHrHVTZJvaJR9W/view?usp=drive_link",
+                "corona":"https://drive.google.com/file/d/10WmziNMbL9MEOQWi1gsbOxbfI6cEGiLk/view?usp=drive_link",
+                "liver":"https://drive.google.com/file/d/1kRy0COtDTa8PSKlEkTqirORNeRtH__u5/view?usp=drive_link",
+                "lungs":"https://drive.google.com/file/d/1H9yjsGalRnogUCWVoxiyh7nh7RRjF4j6/view?usp=drive_link",
+                "skeleton":"https://drive.google.com/file/d/1DNUqNTpUFNK96Je0EFWyahbQL6EUzaft/view?usp=drive_link",
+                "brain":"https://drive.google.com/file/d/14ieLQKbZiJvCaLdGEDjxKPG0lFuGNWN3/view?usp=drive_link"
+            };
+    
+           function high(){
+                var fromTranscriptParagraph = document.querySelector(".from-transcript-p");
+                var words = fromTranscriptParagraph.textContent.split(" ");
+                var newContent = "";
+    
+                words.forEach(function(word) {
+                    var cleanWord = word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").toLowerCase();
+                    if (data_dictionary.hasOwnProperty(cleanWord)) {
+                        newContent += '<span class="highlight" onclick="openLink(\'' + data_dictionary[cleanWord] + '\')">' + word + '</span> ';
+                    } else {
+                        newContent += word + " ";
+                    }
+                });
+    
+                fromTranscriptParagraph.innerHTML = newContent;
+            };
+            function highlightWord() {
+                var searchTerm = document.getElementById('searchInput').value.toLowerCase();
+                var paragraph = document.querySelector(".from-transcript-p");
+                var words = paragraph.innerText.split(" ");
+                var newContent = "";
+    
+                words.forEach(function(word) {
+                    var cleanWord = word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").toLowerCase();
+                    if (cleanWord === searchTerm) {
+                        newContent += '<span class="highlighted">' + word + '</span> ';
+                    } else {
+                        newContent += word + " ";
+                    }
+
+                });
+    
+                paragraph.innerHTML = newContent;
+            }
+    
+        </script>
+        <input type="text" placeholder="Search" class="link-txt1" id="searchInput" style="margin-top: 200px;"><br>
+        <button class="feature" id="searchButton" style="margin-bottom:90px;margin-top:30px" onclick="highlightWord()"><b>SEARCH</b></button><br>
+        <input type="text"  id="st" placeholder="Enter the Start time frame" class="link-txt1" style="margin-top: 10px;margin-bottom:50px;margin-left:0px">
+        <input type="text"  id ="et" placeholder="Enter the End time frame" class="link-txt1" style="margin-top: 10px;margin-bottom:50px;margin-left:30px"><br>
+        <button class="feature" style="margin-bottom:90px" onclick="subVideo()"><b>CLIP</b></button><br>
+        
+        <div class="descr">
+            <div class="three">
+                <b><p>Is this <br>converter free?</p></b>
+                <b><p style="color: rgb(225, 220, 220)">Yes,Our YouTube<br>video converter is<br>completely free to <br>use without any<br>hidden cost</p></b>
+            </div>
+            <div class="three">
+                <b><p>How does the <br>conversion work?</p></b>
+                <b><p style="color:rgb(225, 220, 220)">Paste the link of a<br>YouTube video,<br>Choose your desired <br>from and to language<br>then click the<br>'convert' button</p></b>
+            </div>
+            <div class="three">
+                <b><p>Can I trust this <br>service?</p></b>
+                <b><p style="color:rgb(225, 220, 220)">Absolutely ! Privacy<br>and security are<br>Our top priorites,<br>and we take<br>measures to protect<br>your information</p></b>
+            </div>
+        </div>
+        <div clear="both"></div>
+    </div>
+    <div class="feedback">
+        <b><p style="font-family:Marko One;color:rgb(225, 220, 220);font-size:30px">We Value Your FeedBack!!</p></b><br>
+        <div class="cont">
+            <label style="color:white;font-family:Marko One;font-size:25px">Name</label><br>
+            <input type="text"placeholder="Name" style="height:40px;width:350px;border-radius:10px;margin-top:30px">
+        </div>
+        <div clear="both"></div>
+        <div class="cont">
+            <label style="color:white;font-family:Marko one;font-size:25px">E-mail</label><br>
+            <input type="email" placeholder="E-Mail" style="height:40px;width:350px;border-radius:10px;margin-top:30px;margin-bottom:70px">
+        </div>
+        <div clear="both"></div>
+        <label style="color:white;font-family:Marko One;font-size:25px">Message</label><br>
+        <input type="text" style="width:75%;height:30vh;margin-top:30px;border-radius:10px;margin-bottom:50px"><br>
+        <button class="sub-btn">SUBMIT</button><br>
+        <p style="color:black;margin-top:50px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;background-color:rgb(244, 99, 99);height:25px">An innovative attempt  by team LINGO WIZARDS</p>
+    </div>
+</body>
+</html>

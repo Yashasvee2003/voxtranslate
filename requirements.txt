@@ -1,0 +1,11 @@
+yt_dlp
+Flask
+Flask-CORS
+pydub
+SpeechRecognition
+translate
+requests
+opencv-python
+python-vlc
+moviepy
+gTTS
